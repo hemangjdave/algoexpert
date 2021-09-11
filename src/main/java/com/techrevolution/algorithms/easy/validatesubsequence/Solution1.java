@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
-public class ValidateSubSequenceArray {
+public class Solution1 {
     public static void main(String[] args) {
         List<Integer> mainList = Arrays.asList(5, 1, 22, 25, 6, -1, 8, 10);
         List<Integer> sequence = Arrays.asList(28, 1, 6, -1, 10);
