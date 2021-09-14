@@ -48,9 +48,6 @@ public class Solution1 {
     private String findWiningTeam(Map<String, Integer> map) {
         var optionalStringIntegerEntry
                 = map.entrySet().stream().max(Map.Entry.comparingByValue());
-        if (optionalStringIntegerEntry.isPresent())
-            return optionalStringIntegerEntry.get().getKey();
-        else
-            return "";
+        return optionalStringIntegerEntry.isPresent() ? optionalStringIntegerEntry.get().getKey() : "";
     }
 }
