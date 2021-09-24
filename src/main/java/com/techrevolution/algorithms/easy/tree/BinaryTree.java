@@ -15,6 +15,7 @@ public class BinaryTree {
     private static final Predicate<Node> nullCheckPredicate = Objects::nonNull;
     private static final UnaryOperator<Node> rightNodeUnaryOperator = Node::getRight;
     private static final UnaryOperator<Node> leftNodeUnaryOperator = Node::getLeft;
+    private static final StringBuilder stringBuilder = new StringBuilder();
 
     public void add(int value) {
         Node newNode = new Node(value);
@@ -42,7 +43,7 @@ public class BinaryTree {
         return leftNodeUnaryOperator.apply(traverseNode);
     }
 
-    private static Node linkRightNode(Node traverseNode , Node newNode){
+    private static Node linkRightNode(Node traverseNode, Node newNode) {
         if (nullCheckPredicate.negate().test(rightNodeUnaryOperator.apply(traverseNode))) {
             traverseNode.setRight(newNode);
             return null;
@@ -50,39 +51,42 @@ public class BinaryTree {
         return rightNodeUnaryOperator.apply(traverseNode);
     }
 
-    public void printNodeValue(){
-        traverseNode(rootNode);
-    }
-
-    private static void traverseNode(Node rootNode){
+    private static void traverseNode(Node rootNode) {
         if (nullCheckPredicate.test(leftNodeUnaryOperator.apply(rootNode))) {
             traverseNode(leftNodeUnaryOperator.apply(rootNode));
         }
-        log.info(String.valueOf(getValueFromNode(rootNode)));
+        stringBuilder.append(getValueFromNode(rootNode));
+        stringBuilder.append(" , ");
         if (nullCheckPredicate.test(rightNodeUnaryOperator.apply(rootNode))) {
             traverseNode(rightNodeUnaryOperator.apply(rootNode));
         }
     }
 
-    public int getClosestValueInTree(int value){
-        Node traverseNode = rootNode;
-        while (traverseNode != null) {
-            int valueFromNode = getValueFromNode(traverseNode);
-            if (value == valueFromNode) {
-                return value;
-            }
-            if (value > valueFromNode) {
-                traverseNode = rightNodeUnaryOperator.apply(traverseNode);
-                if (traverseNode.getValue() > value && leftNodeUnaryOperator.apply(traverseNode) == null) {
-                    return valueFromNode;
-                }
-            } else {
-                traverseNode = traverseNode.getLeft();
-                if (traverseNode.getValue() < value && rightNodeUnaryOperator.apply(traverseNode) == null) {
-                    return valueFromNode;
-                }
-            }
+    @Override
+    public String toString() {
+        stringBuilder.append("[");
+        traverseNode(rootNode);
+        stringBuilder.deleteCharAt(stringBuilder.length() - 2);
+        stringBuilder.deleteCharAt(stringBuilder.length() - 2);
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+    }
+
+    public int getClosestValueInTree(int value) {
+        return findClosestValueInBST(rootNode, value, rootNode.getValue());
+    }
+
+    public int findClosestValueInBST(Node node, int target, int closest) {
+        if (Math.abs(target - closest) > Math.abs(target - node.getValue())) {
+            closest = node.getValue();
         }
-        return  -1;
+        if (target < node.getValue() && node.getLeft() != null) {
+            return findClosestValueInBST(node.getLeft(), target, closest);
+        } else if (target > node.getValue() && node.getRight() != null) {
+            return findClosestValueInBST(node.getRight(), target, closest);
+        } else {
+            return closest;
+        }
     }
 }
