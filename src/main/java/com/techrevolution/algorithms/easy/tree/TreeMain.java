@@ -25,5 +25,27 @@ public class TreeMain {
         log.info(String.valueOf(tree.getClosestValueInTree(17)));
         log.info(String.valueOf(tree.getClosestValueInTree(21)));
         log.info(String.valueOf(tree.getClosestValueInTree(19)));
+
+        tree = new BinaryTree();
+        tree.add(10);
+        tree.add(5);
+        tree.add(15);
+        tree.add(2);
+        tree.add(3);
+        tree.add(13);
+        tree.add(22);
+        tree.add(1);
+        tree.add(11);
+        tree.add(14);
+        tree.add(16);
+        tree.add(18);
+        tree.add(25);
+        tree.add(36);
+        FindClosestValueInTree findClosestValueInTree = new FindClosestValueInTree(tree);
+        log.info("New Values.........");
+        log.info(String.valueOf(findClosestValueInTree.findClosestValueInTree(1)));
+        log.info(String.valueOf(findClosestValueInTree.findClosestValueInTree(17)));
+        log.info(String.valueOf(findClosestValueInTree.findClosestValueInTree(21)));
+        log.info(String.valueOf(findClosestValueInTree.findClosestValueInTree(19)));
     }
 }

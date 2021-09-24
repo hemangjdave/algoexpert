@@ -17,6 +17,10 @@ public class BinaryTree {
     private static final UnaryOperator<Node> leftNodeUnaryOperator = Node::getLeft;
     private static final StringBuilder stringBuilder = new StringBuilder();
 
+    public Node getRootNode() {
+        return rootNode;
+    }
+
     public void add(int value) {
         Node newNode = new Node(value);
         Node traverseNode = rootNode;
