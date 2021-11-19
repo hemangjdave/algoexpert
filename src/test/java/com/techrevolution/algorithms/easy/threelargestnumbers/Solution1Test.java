@@ -26,5 +26,4 @@ class Solution1Test {
     void testLargestThreeDigitNumbers4() {
         assertArrayEquals(new int[]{-2 , -1 , 7}, findThreeLargestNumbers(new int[]{-1, -2, -3, -7, -17, -27, -18, -541, -8, -7, 7}));
     }
-
 }
