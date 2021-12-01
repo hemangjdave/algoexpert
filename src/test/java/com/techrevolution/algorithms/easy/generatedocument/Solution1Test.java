@@ -18,5 +18,4 @@ class Solution1Test {
         assertTrue(solution1.generateDocument("aheaollabbhb", "hello"));
         assertTrue(solution1.generateDocument("&*&you^a%^&8766 _=-09     docanCMakemthisdocument", "Can you make this document &"));
     }
-
 }
