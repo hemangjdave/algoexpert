@@ -15,7 +15,7 @@ import java.util.List;
 public class Solution1 {
     public static void main(String[] args) {
         log.info(String.valueOf(longestPeak(new int[]{1, 2, 3, 3, 4, 0, 10, 6, 5, -1, -3, 2, 3})));
-        log.info(String.valueOf(longestPeak(new int[]{1 , 2 , 3 , 3 , 2 , 1})));
+        log.info(String.valueOf(longestPeak(new int[]{1, 2, 3, 3, 2, 1})));
 
         log.info(String.valueOf(longestPeak(new int[]{1, 2, 3, 2, 3, 2})));
         log.info(String.valueOf(longestPeak(new int[]{1, 2, 3, 2, 1, 0})));
@@ -41,15 +41,14 @@ public class Solution1 {
             }
             index++;
         }
-        for (var i = index; i < array.length ; i++) {
+        for (var i = index; i < array.length; i++) {
             if (i == array.length - 1) {
                 if (decreasing && array[i] < array[i - 1]) {
                     numbers.add(array[i]);
-                    if (sumOfNumbers.size() > 0)
+                    if (!sumOfNumbers.isEmpty())
                         sumOfNumbers.add(numbers.size());
                 }
-            }
-            else if (array[i] < array[i + 1]) {
+            } else if (array[i] < array[i + 1]) {
                 numbers.add(array[i]);
                 if (decreasing) {
                     if (hasIncreasNumber)
