@@ -49,5 +49,4 @@ public class Solution1 {
         }
         return -1;
     }
-
 }
