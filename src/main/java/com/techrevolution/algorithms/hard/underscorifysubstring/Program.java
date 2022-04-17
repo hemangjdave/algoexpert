@@ -1,5 +1,7 @@
 package com.techrevolution.algorithms.hard.underscorifysubstring;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * Created By Hemang Dave
  * Date: 26/02/22
@@ -11,12 +13,10 @@ interface TriPredicate<T, U, V> {
     boolean isOverLappedOrSideBySide(T t, U u, V v);
 }
 
+@UtilityClass
 public class Program {
 
     private static final TriPredicate<String, String, Integer> triPredicate = (String::startsWith);
-
-    private Program() {
-    }
 
     public static String underscorifySubstring(String str, String substring) {
         // Write your code here.
@@ -28,6 +28,7 @@ public class Program {
         builder.deleteCharAt(builder.length() - 1);
         return builder.toString();
     }
+
     public static String appendUnderscore(String word, String substring) {
         StringBuilder builder = new StringBuilder(word);
         var startIndex = 0;
@@ -45,7 +46,10 @@ public class Program {
             while (true) {
                 if (triPredicate.isOverLappedOrSideBySide(builder.toString(), substring, endIndex)) {
                     endIndex += substring.length();
-                } else if (triPredicate.isOverLappedOrSideBySide(builder.toString(), substring, endIndex-1) && substring.length() > 1) {
+                } else if (
+                        triPredicate.isOverLappedOrSideBySide(builder.toString(), substring, endIndex - 1)
+                                && substring.length() > 1
+                ) {
                     endIndex += substring.length() - 1;
                 } else {
                     break;

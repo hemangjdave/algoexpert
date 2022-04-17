@@ -1,5 +1,9 @@
 package com.techrevolution.algorithms.medium.reversewordinstring;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created By Hemang Dave
  * Date: 22/01/22
@@ -8,28 +12,43 @@ package com.techrevolution.algorithms.medium.reversewordinstring;
 public class Program {
     public String reverseWordsInString(String string) {
         // Write your code here.
+        String[] array = splitWith(string);
+        String[] clonedArray = new String[array.length];
+        for (int i = 0, j = array.length - 1; i < array.length && j >= 0; i++, j--) {
+            clonedArray[i] = array[j];
+        }
+        StringBuilder builder = new StringBuilder();
+        Arrays.stream(clonedArray).forEach(builder::append);
+        return builder.toString();
+    }
+
+    private String[] splitWith(String string) {
+        List<String> list = new ArrayList<>();
         char[] chars = string.toCharArray();
-        StringBuilder characterBuilder = new StringBuilder();
-        StringBuilder finalString = new StringBuilder();
-        for (var i = chars.length - 1; i > 0; i--) {
-            if (chars[i] == ' ') {
-                finalString.append(chars[i]);
+        StringBuilder builder = new StringBuilder();
+        var pointer = 0;
+        boolean shouldAddLastValue = false;
+        while (pointer < chars.length) {
+            if (!String.valueOf(chars[pointer]).equals(" ")) {
+                builder.append(chars[pointer++]);
+                shouldAddLastValue = true;
             } else {
-                characterBuilder.append(chars[i]);
+                list.add(builder.toString());
+                builder = new StringBuilder();
+                while (pointer < chars.length && chars[pointer] == ' ') {
+                    builder.append(chars[pointer]);
+                    pointer++;
+                }
+                list.add(builder.toString());
+                if (pointer < chars.length) {
+                    builder = new StringBuilder();
+                }
+                shouldAddLastValue = false;
             }
         }
-        return finalString.toString();
+        if (shouldAddLastValue)
+            list.add(builder.toString());
+        return list.toArray(new String[0]);
     }
+
 }
-
-
-
-    /*String[] words = string.split(" ");
-    StringBuilder builder = new StringBuilder();
-        for (var i = words.length; i > 0; i--) {
-                builder.append(words[i - 1]);
-                if (i > 1) {
-                builder.append(" ");
-                }
-                }
-                return builder.toString();*/
