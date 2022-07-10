@@ -53,7 +53,6 @@ public class Program {
                 finalSum = firstSum;
             }
         }
-
         return list;
     }
 }
