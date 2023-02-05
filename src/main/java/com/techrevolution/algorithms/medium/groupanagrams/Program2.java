@@ -16,11 +16,12 @@ public class Program2 {
     public static List<List<String>> groupAnagrams(List<String> words) {
         // Write your code here.
         List<String> sortedList = new ArrayList<>();
-        for(String word : words){
+
+        words.forEach(word -> {
             char[] chars = word.toCharArray();
             Arrays.sort(chars);
             sortedList.add(new String(chars));
-        }
+        });
         Map<String, List<String>> map = new HashMap<>();
         for (var i = 0; i < sortedList.size(); i++) {
             String currentSortedString = sortedList.get(i);

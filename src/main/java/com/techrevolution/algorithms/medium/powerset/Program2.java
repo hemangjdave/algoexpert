@@ -4,10 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Queue;
+import java.util.stream.IntStream;
 
 /**
  * Created By Hemang Dave
@@ -17,7 +18,7 @@ import java.util.Queue;
 @Slf4j
 public class Program2 {
     public static void main(String[] args) {
-        log.info(powerset(new ArrayList<>(Arrays.asList(1, 2 , 3 , 4))).toString());
+        log.info(powerset(IntStream.rangeClosed(1, 4).boxed().toList()).toString());
     }
 
     public static List<List<Integer>> powerset(List<Integer> array) {
@@ -32,21 +33,26 @@ public class Program2 {
             List<Integer> list = Collections.singletonList(array.get(i));
             result.add(list);
             queue.add(list);
-            processQueue(array, result, queue);
+            processQueue(array, result, queue, i);
         }
         return result;
     }
 
-    private static void processQueue(List<Integer> array , List<List<Integer>> result, Queue<List<Integer>> queue) {
-        while (!queue.isEmpty()){
+    private static void processQueue(List<Integer> array, List<List<Integer>> result, Queue<List<Integer>> queue, int index) {
+        while (!queue.isEmpty()) {
             List<Integer> list = queue.poll();
-            int index = array.indexOf(list.get(list.size() - 1));
+            if (index == array.size() && !Objects.equals(list.get(list.size() - 1), array.get(array.size() - 1))) {
+                index -= 2;
+            }
+            log.info("pulling element {} with index {}" , list , index);
             for (var i = index + 1; i < array.size(); i++) {
                 List<Integer> sublist = new ArrayList<>(list);
                 sublist.add(array.get(i));
                 result.add(sublist);
                 queue.add(sublist);
             }
+            ++index;
+
         }
     }
 }

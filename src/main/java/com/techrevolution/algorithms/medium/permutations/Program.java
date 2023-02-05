@@ -15,7 +15,7 @@ public class Program {
     public static void main(String[] args) {
 //        getPermutations(Arrays.asList(1, 2));
 //        getPermutations(Arrays.asList(1, 2 , 3));
-        getPermutations(Arrays.asList(1, 2, 3, 4));
+        System.out.println(getPermutations(Arrays.asList(1, 2)));
     }
 
     public static List<List<Integer>> getPermutations(List<Integer> array) {
@@ -23,30 +23,36 @@ public class Program {
         if (array.isEmpty()) {
             return Collections.emptyList();
         }
-        List<List<Integer>> returnList = new ArrayList<>();
-        // Adding the first array element
-        returnList.add(new ArrayList<>(array));
-        int inputLength = array.size();
-        int permutationNumber = (inputLength * inputLength) - inputLength;
-        inputLength--;
-        int swapIndex = inputLength - 1;
-        for (var i = 0; i < 24; i++) {
-            returnList.add(swapElement(inputLength--, swapIndex--, array));
-            if (swapIndex == -1) {
-                inputLength = array.size() - 1;
-                swapIndex = 1;
-            }
+        if (array.size() == 1) {
+            return Collections.singletonList(array);
         }
-        System.out.println(returnList);
+        List<List<Integer>> returnList = new ArrayList<>();
+        swapElements(array, 0, returnList, 0);
         return returnList;
     }
 
-    private static List<Integer> swapElement(int currentPosition, int swapPosition, List<Integer> list) {
-        int currentValue = list.get(currentPosition);
-        int swapValue = list.get(swapPosition);
-        list.set(swapPosition, currentValue);
-        list.set(currentPosition, swapValue);
-        return new ArrayList<>(list);
+    //1 2 3 , 1 3 2
+    // 0 0 , 1 2
+    //2 1 3 , 2 3 1
+    // 0 1 , 1 2
+    //3 2 1 , 3 1 2
+    //0 2 , 1 2
+    private static void swapElements(List<Integer> array, int index, List<List<Integer>> returnList, int count) {
+        if (count > array.size() - 1) {
+            return;
+        }
+        if (index == 0 && count == 0) {
+            returnList.add(new ArrayList<>(array));
+            swapElements(array, index, returnList, ++ count);
+            Collections.swap(array, ++ index, index + 1);
+            returnList.add(array);
+        } else {
+            List<Integer> swappedList = new ArrayList<>(array);
+            Collections.swap(swappedList, index, count);
+            returnList.add(swappedList);
+            swapElements(array, index, returnList, ++ count);
+            swapElements(swappedList, ++ index, returnList, index + 1);
+        }
     }
 
 }

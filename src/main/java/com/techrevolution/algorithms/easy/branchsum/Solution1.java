@@ -17,6 +17,7 @@ public class Solution1 {
 
     private static final BinaryTree tree = new BinaryTree();
     private static final List<Integer> branchSums = new ArrayList<>();
+
     private int sumOfBranch = 0;
 
     public static void main(String[] args) {

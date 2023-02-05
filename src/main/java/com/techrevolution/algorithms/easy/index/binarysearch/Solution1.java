@@ -34,12 +34,12 @@ public class Solution1 {
     }
 
     private static int getIndex(int[] array, int target, IntUnaryOperator intUnaryOperator, IntPredicate intPredicate) {
-        for (var i = array.length / 2; intPredicate.test(i);i = intUnaryOperator.applyAsInt(i)) {
+        for (var i = array.length / 2; intPredicate.test(i); i = intUnaryOperator.applyAsInt(i)) {
             if (array[i] == target) {
                 return i;
             }
         }
-        return -1;
+        return - 1;
     }
 
 }
